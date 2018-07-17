@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>In dam van ban trong HTML</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="" ng-init="cacquocgia = [{locale: 'en-VN', ten: 'CHXHCN Viet Nam'},
+											{locale: 'en-GB', ten: 'vuong quoc Anh'},
+											{locale: 'en-FR', ten: 'Cong hoa Phap'}];
+											soluong = 2; gia = 40; sinhvien = {ho: 'nguyen', ten: 'bao', massv: 46456};
+											diemthi = [4, 3, 6, 7, 8]">
+        <p>Name:
+            <input type="text" ng-model="username">
+        </p>
+        <p ng-bind="username"></p>
+        <p>danh sach cac quoc gia</p>
+        <ol>
+            <li ng-repeat="quocgia in cacquocgia">
+                {{'Quoc gia: ' + quocgia.ten + ', Locale: ' + quocgia.locale}}
+            </li>
+        </ol>
+        <p>Job:
+            <input type="text" ng-model="jobs">
+        </p>
+        <p> xin chao {{sinhvien.ho + " " + sinhvien.ten}}</p>
+        <p> massv: {{sinhvien.massv}}</p>
+        <p> diem thi: {{diemthi[2]}}</p>
+        <p>{{soluong * gia}}</p>
+    </div>
+    <script>
+    	function 
+    </script>
+</body>
+
+</html>
