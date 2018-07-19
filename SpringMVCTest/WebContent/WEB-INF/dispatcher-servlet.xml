@@ -18,6 +18,8 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.dxc.controller" />
+	<mvc:resources mapping="/resources/**" location="/resources/"  
+	cache-period="31556926"/>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -28,13 +30,42 @@
 		</property>
 	</bean>
 
-
-	<!-- Database Configuration -->
-	<import resource="DataSource.xml" />
-	<!-- Hibernate 4 SessionFactory Bean definition -->
-	<import resource="hibernate.cfg.xml" />
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+<bean name="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="net.sourceforge.jtds.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:jtds:sqlserver://localhost:1433;databaseName=AssignmentMFS" />
+		<property name="username" value="sa" />
+		<property name="password" value="Admin2018" />
 	</bean>
+
+	<bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingResources">
+			<list>
+				<value>User.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean name="userDao" class="com.dxc.DaoImpl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+<!-- 	<import resource="DataSource.xml" /> -->
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+<!-- 	<import resource="hibernate.cfg.xml" /> -->
+<!-- 	<bean id="transactionManager" -->
+<!-- 		class="org.springframework.orm.hibernate4.HibernateTransactionManager"> -->
+<!-- 		<property name="sessionFactory" ref="sessionFactory" /> -->
+<!-- 	</bean> -->
 </beans>
